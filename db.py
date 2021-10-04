@@ -21,7 +21,7 @@ conn.execute(
     );'''
 )
 
-file = list(csv.DictReader(open('sample2.csv', encoding="utf-8")))
+file = list(csv.DictReader(open('sample.csv', encoding="utf-8")))
 
 for recipe in file:
     recipe_id = recipe["id"]

@@ -21,41 +21,52 @@ conn.execute(
     );'''
 )
 
-file = list(csv.DictReader(open('sample.csv', encoding="utf-8")))
+file = list(csv.DictReader(open('RAW_recipes.csv', encoding="utf-8")))
 
-for recipe in file:
-    recipe_id = recipe["id"]
-    name = recipe["name"]
-    minutes = recipe["minutes"]
-    
-    # Steps - list
-    steps = recipe["steps"]
-    steps = re.sub("(',\s')", ", ", steps)
-    res = steps.strip('][').split(', ') # converts list which is a string to a list
-    steps_para = ''
-    for step in res:
-        step = step.replace("\'", "")
-        steps_para = steps_para + step + ", "
+for idx, recipe in enumerate(file):
+    if idx < 2000:
+        recipe_id = recipe["id"]
+        name = recipe["name"]
+        minutes = recipe["minutes"]
+        
+        # Steps - list
+        steps = recipe["steps"]
+        steps = re.sub("(',\s')", ", ", steps)
+        res = steps.strip('][').split(', ') # converts list which is a string to a list
+        steps_para = ''
+        for idx, step in enumerate(res):
+            try:
+                if idx == 0:
+                    formatting = step[1].upper() + step[2:]
+                else:
+                    formatting = step[0].upper() + step[1:]
+            except:
+                formatting = step
+            step = str(idx+1) + ") " + formatting
+            step = step.replace("\'", "")
+            steps_para = steps_para + step + ", "
 
-    n_steps = recipe["n_steps"]
-    description = recipe["description"]
+        n_steps = recipe["n_steps"]
+        description = recipe["description"]
 
-    # Ingredients - list
-    ingredients = recipe["ingredients"]
-    res = ingredients.strip('][').split(', ')
-    ingredients_para = ''
-    for ingredient in res:
-        ingredient = ingredient.replace("\'", "")
-        ingredients_para = ingredients_para + ingredient + ","
+        # Ingredients - list
+        ingredients = recipe["ingredients"]
+        res = ingredients.strip('][').split(', ')
+        ingredients_para = ''
+        for ingredient in res:
+            ingredient = ingredient.replace("\'", "")
+            ingredients_para = ingredients_para + ingredient + ","
 
-    n_ingredients = recipe["n_ingredients"]
+        n_ingredients = recipe["n_ingredients"]
 
-    params = (
-        recipe_id, name, minutes, steps_para, n_steps, description, ingredients_para, n_ingredients
-    )
+        params = (
+            recipe_id, name, minutes, steps_para, n_steps, description, ingredients_para, n_ingredients
+        )
 
-    cursor.execute(f"INSERT INTO RECIPE_TABLE VALUES (?, ?, ?, ?, ?, ?, ?, ?)", params)
-    conn.commit()
+        cursor.execute(f"INSERT INTO RECIPE_TABLE VALUES (?, ?, ?, ?, ?, ?, ?, ?)", params)
+        conn.commit()
+    else:
+        break
 
 conn.close()
 

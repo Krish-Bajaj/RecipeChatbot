@@ -11,10 +11,12 @@ def createDataSet(file, key, start, end):
             if (idx >= start and idx < end):
                 f.write(value + '\n')
 
+# delete before creating new one's
+
 # creating test data
-createDataSet("test.from", 'INGREDIENTS', 0, 10)
-createDataSet("test.to", 'STEPS', 0, 10)
+createDataSet("test.from", 'INGREDIENTS', 0, 1999)
+createDataSet("test.to", 'STEPS', 0, 1999)
 
 # creating training data
-createDataSet("train.from", 'INGREDIENTS', 10, 20)
-createDataSet("train.to", 'STEPS', 10, 20)
+# createDataSet("train.from", 'INGREDIENTS', 10, 20)
+# createDataSet("train.to", 'STEPS', 10, 20)

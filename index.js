@@ -4,11 +4,18 @@ const chatbotOutput = document.getElementById('chatbotOutput');
 
 submitButton.onclick = userSubmitEventHandler;
 
-function userSubmitEventHandler(e) {
-    e.preventDefault()
+function userSubmitEventHandler(e, flag=false) {
+    let query = {}
 
-    const query = {
-        query: document.getElementById('myText').value
+    if (flag) {
+        query = {
+            query: e
+        }
+    } else {
+        e.preventDefault()
+        query = {
+            query: document.getElementById('myText').value
+        }
     }
     fetch('http://127.0.0.1:5000/', {
         method: 'POST',
@@ -20,7 +27,12 @@ function userSubmitEventHandler(e) {
     .then(response => response.json())
     .then(json => {
         console.log(json)
-        chatbotInput.innerText = document.getElementById('myText').value;
-        chatbotOutput.innerText = json;
+        if (flag) {
+            chatbotInput.innerText = e;
+            chatbotOutput.innerText = json;
+        } else {
+            chatbotInput.innerText = document.getElementById('myText').value;
+            chatbotOutput.innerText = json;
+        }
     });
 }

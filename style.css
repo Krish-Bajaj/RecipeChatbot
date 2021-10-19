@@ -37,7 +37,7 @@
     flex-flow: column wrap;
     justify-content: space-between;
     width: 50%;
-    margin-right: 43%;
+    margin-right: 6%;
 
     max-width: 867px;
     /* margin: 25px 10px; */
@@ -159,4 +159,25 @@
     background-repeat: no-repeat;
     background-size: cover;
 
+  }
+
+  .first{
+    color: white;
+    text-decoration: none;
+    padding: 20px 20px;
+  }
+  li{
+    color: white;
+    text-decoration: none;
+    padding: 20px 0px;
+    margin-left: 40px;
+    cursor: pointer;
+  }
+  .static{
+    height: 300px;
+    width: 350px;
+    background-color:rgb(7, 6, 6);
+    border-style: solid;
+    border-radius: 20px;
+    border-color:white;
   }
